@@ -21,12 +21,13 @@ public:
 	};
 
 	TCPSocketBase();
-	TCPSocketBase(SocketType type, char *IpAdrr, int port);
+	TCPSocketBase(SocketType type, const char *IpAdrr, int port);
 	~TCPSocketBase();
 	SocketStatus Sendmessage(char *message);
 	SocketStatus Recievemessage(int *buffer);
 	void SocketLoop();
-	void CloseSocket();
+	void Shutdown();
+	TCPSocketBase::SocketStatus Listening();
 
 private:
 	WSADATA wsData;
@@ -34,6 +35,7 @@ private:
 	int wsOk;
 	SocketStatus STT = OK;
 	SOCKET skListening;
-	struct sockaddr_in hint;
+	struct sockaddr_in hint, client;
+	SOCKET clientSocket;
 };
 

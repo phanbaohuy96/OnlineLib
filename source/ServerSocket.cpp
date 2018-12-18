@@ -2,7 +2,7 @@
 
 
 
-ServerSocket::ServerSocket(SocketType type, char *IpAdrr, int port)
+ServerSocket::ServerSocket(SocketType type, const char *IpAdrr, int port) : TCPSocketBase(type, IpAdrr, port)
 {
 }
 

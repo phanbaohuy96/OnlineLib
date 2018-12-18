@@ -2,7 +2,7 @@
 
 
 
-ClientSocket::ClientSocket(SocketType type, char *IpAdrr, int port)
+ClientSocket::ClientSocket(SocketType type, const char *IpAdrr, int port) : TCPSocketBase(type, IpAdrr, port)
 {
 }
 

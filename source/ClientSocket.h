@@ -4,7 +4,7 @@ class ClientSocket :
 	public TCPSocketBase
 {
 public:
-	ClientSocket(SocketType type, char *IpAdrr, int port);
+	ClientSocket(SocketType type, const char *IpAdrr, int port);
 	~ClientSocket();
 };
 
