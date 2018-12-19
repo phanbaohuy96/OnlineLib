@@ -4,7 +4,11 @@ class ServerSocket :
 	public TCPSocketBase
 {
 public:
-	ServerSocket(SocketType type, const char *IpAdrr, int port);
+	ServerSocket(int port);
 	~ServerSocket();
+	TCPSocketBase::SocketStatus Listening();
+
+private:
+	SOCKET * clientSocketList;
 };
 

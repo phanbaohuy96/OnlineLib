@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <WS2tcpip.h>
+#include <time.h>
 #pragma comment (lib, "ws2_32.lib")
 
 using namespace std;
@@ -25,17 +26,17 @@ public:
 	~TCPSocketBase();
 	SocketStatus Sendmessage(char *message);
 	SocketStatus Recievemessage(int *buffer);
-	void SocketLoop();
+	void SocketLoop(SOCKET clientSocket);
+	const std::string currentDateTime();
 	void Shutdown();
-	TCPSocketBase::SocketStatus Listening();
 
-private:
+protected:
 	WSADATA wsData;
 	WORD ver;
 	int wsOk;
 	SocketStatus STT = OK;
-	SOCKET skListening;
 	struct sockaddr_in hint, client;
-	SOCKET clientSocket;
+	SOCKET m_Socket;
+	SOCKET skListening;
 };
 
