@@ -7,8 +7,9 @@ public:
 	ServerSocket(int port);
 	~ServerSocket();
 	TCPSocketBase::SocketStatus Listening();
+	void SocketLoop();
 
 private:
-	SOCKET * clientSocketList;
+	struct fd_set master;
 };
 

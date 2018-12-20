@@ -1,3 +1,5 @@
-﻿  main.cpp
-d:\sources\online\source\main.cpp(4): warning C4326: return type of 'main' should be 'int' instead of 'void'
-  Online.vcxproj -> D:\Sources\Online\Debug\Online.exe
+﻿  ClientSocket.cpp
+  ServerSocket.cpp
+  main.cpp
+  Generating Code...
+  Online.vcxproj -> D:\Sources\Online\OnlineLib\Debug\Online.exe

@@ -19,11 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\header\SocketBase.h" />
+    <ClCompile Include="..\source\ClientSocket.cpp" />
+    <ClCompile Include="..\source\main.cpp" />
+    <ClCompile Include="..\source\ServerSocket.cpp" />
+    <ClCompile Include="..\source\TCPSocketBase.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\source\main.cpp" />
-    <ClCompile Include="..\source\SocketBase.cpp" />
+    <ClInclude Include="..\source\ClientSocket.h" />
+    <ClInclude Include="..\source\ServerSocket.h" />
+    <ClInclude Include="..\source\TCPSocketBase.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

@@ -12,6 +12,7 @@ class ClientSocket :
 public:
 	ClientSocket(const char *IpAdrr, int port);
 	void Recievemessage();
+	void MessageListening();
 	void Sendmessage();
 	void Shutdown();
 

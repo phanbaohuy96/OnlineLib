@@ -1,5 +1,5 @@
 #include "ClientSocket.h"
-
+#include <thread>
 
 
 ClientSocket::ClientSocket(const char *IpAdrr, int port) : TCPSocketBase(SocketType::CLIENT, IpAdrr, port)
@@ -22,11 +22,14 @@ ClientSocket::ClientSocket(const char *IpAdrr, int port) : TCPSocketBase(SocketT
 
 void ClientSocket::Recievemessage()
 {
-	cout << currentDateTime().c_str() << " :: Starting receive message from server..." << endl;
 	if (STT == ERRORS)
 	{
 		cerr << currentDateTime().c_str() << " :: Client error.... Shutdown!" << endl;
 		return;
+	}
+	else
+	{
+		cout << currentDateTime().c_str() << " :: Starting receive message from server..." << endl;
 	}
 
 	char buf[1024];
@@ -55,6 +58,13 @@ void ClientSocket::Recievemessage()
 		cout << buf_1 << endl;
 	}
 }
+
+void ClientSocket::MessageListening()
+{
+	 thread task = thread(&ClientSocket::Recievemessage, this);
+	 task.detach();
+};
+
 
 void ClientSocket::Sendmessage()
 {

@@ -52,6 +52,8 @@ int main(int argc, char *argv[])
 	{
 		ClientSocket *client = new ClientSocket(ip, port);
 
+		client->MessageListening();
+
 		client->Sendmessage();
 
 		client->Shutdown();
@@ -62,7 +64,7 @@ int main(int argc, char *argv[])
 
 		server->Listening();
 
-		server->SocketLoop(NULL);
+		server->SocketLoop();
 
 		server->Shutdown();
 	}
