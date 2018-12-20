@@ -1,5 +1,7 @@
 #pragma once
 #include "TCPSocketBase.h"
+#include <sstream>
+
 class ServerSocket :
 	public TCPSocketBase
 {

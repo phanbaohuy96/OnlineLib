@@ -99,6 +99,8 @@ void ServerSocket::SocketLoop()
 						SOCKET outSock = master.fd_array[j];
 						if (outSock != skListening && outSock != client)
 						{
+							ostringstream ss;
+							ss << "CLIENT #" << client << ": " << buf << "\r\n";
 							send(outSock, buf, byteReceived + 1, 0);
 						}
 					}

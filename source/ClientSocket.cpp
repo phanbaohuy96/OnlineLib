@@ -55,7 +55,7 @@ void ClientSocket::Recievemessage()
 		char buf_1[1024]; 
 		buf_1[0] = 0;
 		strcat_s(buf_1, buf);
-		cout << buf_1 << endl;
+		cout << currentDateTime().c_str() << buf_1 << endl;
 	}
 }
 
@@ -71,7 +71,6 @@ void ClientSocket::Sendmessage()
 	while (STT == OK)
 	{
 		char buffer[1024];
-		cout << currentDateTime().c_str() << " :: Client: ";
 		fgets(buffer, 1024, stdin);
 		send(skListening, buffer, sizeof(buffer) + 1, 0);
 	}
