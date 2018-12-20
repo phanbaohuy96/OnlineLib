@@ -101,7 +101,8 @@ void ServerSocket::SocketLoop()
 						{
 							ostringstream ss;
 							ss << "CLIENT #" << client << ": " << buf << "\r\n";
-							send(outSock, buf, byteReceived + 1, 0);
+							string mess = ss.str();
+							send(outSock, mess.c_str(), mess.size() + 1, 0);
 						}
 					}
 				}
