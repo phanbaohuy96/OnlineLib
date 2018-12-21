@@ -1,5 +1,6 @@
 #include "ClientSocket.h"
 #include <thread>
+#include <string>
 
 
 ClientSocket::ClientSocket(const char *IpAdrr, int port) : TCPSocketBase(SocketType::CLIENT, IpAdrr, port)
@@ -7,7 +8,6 @@ ClientSocket::ClientSocket(const char *IpAdrr, int port) : TCPSocketBase(SocketT
 	hint.sin_family = AF_INET;
 	InetPton(AF_INET, IpAdrr, &hint.sin_addr.s_addr);
 	hint.sin_port = htons(port);
-	bind(socket, (sockaddr *)&hint, sizeof(hint));
 
 	if (connect(skListening, (struct sockaddr *)&hint, sizeof(hint)) < 0)
 	{
@@ -15,9 +15,6 @@ ClientSocket::ClientSocket(const char *IpAdrr, int port) : TCPSocketBase(SocketT
 		STT = ERRORS;
 		return;
 	}
-
-	//close socket bridge
-	closesocket(socket);
 }
 
 void ClientSocket::Recievemessage()
@@ -42,20 +39,19 @@ void ClientSocket::Recievemessage()
 		if (byteReceived == SOCKET_ERROR)
 		{
 			cerr << currentDateTime().c_str() << " :: Error in when receive data.... Shutdown!" << endl;
+			STT = ERRORS;
 			break;
 		}
 
 		if (byteReceived == 0)
 		{
-			cout << currentDateTime().c_str() << " :: Client disconnection.... Shutdown!" << endl;
+			cout << currentDateTime().c_str() << " :: Server disconnection.... Shutdown!" << endl;
+			STT = ERRORS;
 			break;
 		}
 
 		//Echo data from server
-		char buf_1[1024]; 
-		buf_1[0] = 0;
-		strcat_s(buf_1, buf);
-		cout << currentDateTime().c_str() << buf_1 << endl;
+		cout << currentDateTime().c_str() << buf << "\r\n" << endl;
 	}
 }
 
@@ -70,9 +66,10 @@ void ClientSocket::Sendmessage()
 {
 	while (STT == OK)
 	{
-		char buffer[1024];
-		fgets(buffer, 1024, stdin);
-		send(skListening, buffer, sizeof(buffer) + 1, 0);
+		string buf;
+		getline(cin, buf);
+		if (buf != "")
+			send(skListening, buf.c_str() , buf.size() + 1, 0);
 	}
 }
 

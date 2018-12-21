@@ -61,9 +61,9 @@ void ServerSocket::SocketLoop()
 				FD_SET(nClient, &master);
 
 				//Send connection successfully message.
-				string mess = "Connect successfully!!";
-				send(client, mess.c_str(), mess.size() + 1, 0);
-
+				string mess = " :: Connect successfully!!";
+				send(nClient, mess.c_str(), mess.size() + 1, 0);
+				cerr << currentDateTime().c_str() << " :: Client #" << nClient << " has joined.... " << endl;
 			}
 			else
 			{
@@ -77,30 +77,18 @@ void ServerSocket::SocketLoop()
 				{
 					//Drop client
 					closesocket(client);
-					char host[NI_MAXHOST],		// CLient's remote name
-						 services[NI_MAXSERV];	// Service (i.e. port) the client is connect on
-
-					ZeroMemory(host, NI_MAXHOST);		//Same as memset(host, 0, NI_MAXHOST);
-					ZeroMemory(services, NI_MAXSERV);
-					if (getnameinfo((sockaddr *)&client, sizeof(client), host, NI_MAXHOST, services, NI_MAXSERV, 0) == 0)
-					{
-						cout << currentDateTime().c_str() << " :: Disconnected " << host << " on port " << services << endl;
-					}
-					else
-					{
-						cerr << currentDateTime().c_str() << " :: Error when receive data.... Shutdown!" << endl;
-					}
+					cerr << currentDateTime().c_str() << " :: Client #" << client << " disconnected.... " << endl;
 					FD_CLR(client, &master);
 				}else
 				{
-					// Send message to other clients and definiately NOT the listening socket
+					// Send message to other clients and definitely NOT the listening socket
 					for (unsigned j = 0; j < master.fd_count; j++)
 					{
 						SOCKET outSock = master.fd_array[j];
 						if (outSock != skListening && outSock != client)
 						{
 							ostringstream ss;
-							ss << "CLIENT #" << client << ": " << buf << "\r\n";
+							ss << " [CLIENT #" << client << "]: " << buf ;
 							string mess = ss.str();
 							send(outSock, mess.c_str(), mess.size() + 1, 0);
 						}

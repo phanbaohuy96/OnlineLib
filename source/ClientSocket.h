@@ -18,8 +18,6 @@ public:
 
 	~ClientSocket();
 private:
-	SOCKET socket;
-	struct hostent *server;
 	struct sockaddr_in serv_addr;
 };
 

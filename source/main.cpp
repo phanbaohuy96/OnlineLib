@@ -10,8 +10,8 @@ int port = -1;
 // --Type Client --RemoteIP 127.0.0.1 --Port 54000
 void ParseArgv(int argc, char *argv[])
 {
-	cout << "#######################################" << endl;
-	cout << "# There were " << argc << " parameters\n";
+	cout << "#########################################" << endl;
+	cout << "# There were " << argc << " parameters\t\t#\n";
 	if (argc < 3)
 		cerr << "Argv is invalid..." << endl;
 	for (int i = 1; i<argc; i = i + 2)
@@ -21,12 +21,12 @@ void ParseArgv(int argc, char *argv[])
 		{
 			string argC = argv[i + 1];
 			port = atoi(argC.c_str());
-			cout << "# Port is: " << port << endl;
+			cout << "# Port is: " << port << "\t\t\t#" << endl;
 		}
 		else if (arg == "--RemoteIP")
 		{
 			ip = argv[i + 1];
-			cout << "# Remote ip is: " << ip << endl;
+			cout << "# Remote ip is: " << ip << "\t\t#" << endl;
 		}
 		else if (arg == "--Type")
 		{
@@ -34,15 +34,15 @@ void ParseArgv(int argc, char *argv[])
 			if (argC == "Server")
 			{
 				type = ServerSocket::SocketType::SERVER;
-				cout << "# Server type." << endl;
+				cout << "# Server type.\t\t\t\t#" << endl;
 			}
 			else
 			{
-				cout << "# Client type." << endl;
+				cout << "# Client type.\t\t\t\t#" << endl;
 			}
 		}
 	}
-	cout << "#######################################" << endl;
+	cout << "#########################################" << endl;
 }
 
 int main(int argc, char *argv[])
