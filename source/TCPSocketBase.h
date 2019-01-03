@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include <WS2tcpip.h>
+#include "SocketWrapper.h"
 #include <time.h>
 #pragma comment (lib, "ws2_32.lib")
 
@@ -30,11 +30,11 @@ public:
 	void Shutdown();
 
 protected:
-	WSADATA wsData;
-	WORD ver;
+	WSADATA_wp wsData;
+	WORD_wp ver;
 	int wsOk;
 	SocketStatus STT = OK;
-	struct sockaddr_in hint, client;
-	SOCKET skListening;
+	sockaddr_in_wp hint, client;
+	SOCKET_wp skListening;
 };
 

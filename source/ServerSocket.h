@@ -12,6 +12,6 @@ public:
 	void SocketLoop();
 
 private:
-	struct fd_set master;
+	fd_set_wp master;
 };
 

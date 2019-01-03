@@ -1,5 +1,6 @@
 ﻿  ClientSocket.cpp
   ServerSocket.cpp
+  TCPSocketBase.cpp
   main.cpp
   Generating Code...
   Online.vcxproj -> D:\Sources\Online\OnlineLib\Debug\Online.exe

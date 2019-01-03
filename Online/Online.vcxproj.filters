@@ -29,14 +29,17 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\source\ClientSocket.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\source\TCPSocketBase.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\source\ServerSocket.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\TCPSocketBase.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="..\source\ClientSocket.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\SocketWrapper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

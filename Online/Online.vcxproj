@@ -27,6 +27,7 @@
   <ItemGroup>
     <ClInclude Include="..\source\ClientSocket.h" />
     <ClInclude Include="..\source\ServerSocket.h" />
+    <ClInclude Include="..\source\SocketWrapper.h" />
     <ClInclude Include="..\source\TCPSocketBase.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

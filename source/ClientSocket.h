@@ -18,6 +18,6 @@ public:
 
 	~ClientSocket();
 private:
-	struct sockaddr_in serv_addr;
+	sockaddr_in_wp serv_addr;
 };
 

@@ -26,10 +26,10 @@ TCPSocketBase::SocketStatus ServerSocket::Listening()
 	}
 
 	//tell winsock the socket is for listening
-	listen(skListening, SOMAXCONN);
+	listen_wrapper(skListening, SOMAXCONN);
 
-	FD_ZERO(&master);
-	FD_SET(skListening, &master);
+	FD_ZERO_wrapper(&master);
+	FD_SET_wrapper(skListening, &master);
 
 	return OK;
 }
@@ -45,24 +45,24 @@ void ServerSocket::SocketLoop()
 
 	while (true)
 	{
-		fd_set copy = master;
+		fd_set_wp copy = master;
 
-		int socketCount = select(0, &copy, nullptr, nullptr, nullptr);
+		int socketCount = select_wrapper(0, &copy, nullptr, nullptr, nullptr);
 
 		for (int i = 0; i < socketCount; i++)
 		{
-			SOCKET client = copy.fd_array[i];
+			SOCKET_wp client = copy.fd_array[i];
 			if (client == skListening)
 			{
 				//Accept a new client
-				SOCKET nClient = accept(skListening, nullptr, nullptr);
+				SOCKET_wp nClient = accept(skListening, nullptr, nullptr);
 
 				//Add the new client to the list of clients
-				FD_SET(nClient, &master);
+				FD_SET_wrapper(nClient, &master);
 
 				//Send connection successfully message.
 				string mess = " :: Connect successfully!!";
-				send(nClient, mess.c_str(), mess.size() + 1, 0);
+				send_wrapper(nClient, mess.c_str(), mess.size() + 1, 0);
 				cerr << currentDateTime().c_str() << " :: Client #" << nClient << " has joined.... " << endl;
 			}
 			else
@@ -71,26 +71,26 @@ void ServerSocket::SocketLoop()
 				char buf[1024];
 				ZeroMemory(buf, 1024);
 
-				int byteReceived = recv(client, buf, 1024, 0);
+				int byteReceived = recv_wrapper(client, buf, 1024, 0);
 
 				if (byteReceived <= 0)
 				{
 					//Drop client
-					closesocket(client);
+					closesocket_wrapper(client);
 					cerr << currentDateTime().c_str() << " :: Client #" << client << " disconnected.... " << endl;
-					FD_CLR(client, &master);
+					FD_CLR_wrapper(client, &master);
 				}else
 				{
 					// Send message to other clients and definitely NOT the listening socket
 					for (unsigned j = 0; j < master.fd_count; j++)
 					{
-						SOCKET outSock = master.fd_array[j];
+						SOCKET_wp outSock = master.fd_array[j];
 						if (outSock != skListening && outSock != client)
 						{
 							ostringstream ss;
 							ss << " [CLIENT #" << client << "]: " << buf ;
 							string mess = ss.str();
-							send(outSock, mess.c_str(), mess.size() + 1, 0);
+							send_wrapper(outSock, mess.c_str(), mess.size() + 1, 0);
 						}
 					}
 				}

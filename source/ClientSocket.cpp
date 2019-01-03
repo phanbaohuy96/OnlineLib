@@ -6,10 +6,10 @@
 ClientSocket::ClientSocket(const char *IpAdrr, int port) : TCPSocketBase(SocketType::CLIENT, IpAdrr, port)
 {
 	hint.sin_family = AF_INET;
-	InetPton(AF_INET, IpAdrr, &hint.sin_addr.s_addr);
-	hint.sin_port = htons(port);
+	InetPton_wrapper(AF_INET, IpAdrr, &hint.sin_addr.s_addr);
+	hint.sin_port = htons_wrapper(port);
 
-	if (connect(skListening, (struct sockaddr *)&hint, sizeof(hint)) < 0)
+	if (connect_wrapper(skListening, (sockaddr_wp *)&hint, sizeof(hint)) < 0)
 	{
 		cerr << currentDateTime().c_str() << " :: ERROR connecting to server." << endl;
 		STT = ERRORS;
@@ -35,7 +35,7 @@ void ClientSocket::Recievemessage()
 		ZeroMemory(buf, 1024);
 
 		//wait for client send data
-		int byteReceived = recv(skListening, buf, 1024, 0);
+		int byteReceived = recv_wrapper(skListening, buf, 1024, 0);
 		if (byteReceived == SOCKET_ERROR)
 		{
 			cerr << currentDateTime().c_str() << " :: Error in when receive data.... Shutdown!" << endl;
@@ -69,7 +69,7 @@ void ClientSocket::Sendmessage()
 		string buf;
 		getline(cin, buf);
 		if (buf != "")
-			send(skListening, buf.c_str() , buf.size() + 1, 0);
+			send_wrapper(skListening, buf.c_str() , buf.size() + 1, 0);
 	}
 }
 

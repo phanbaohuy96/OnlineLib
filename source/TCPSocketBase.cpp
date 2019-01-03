@@ -13,8 +13,8 @@ TCPSocketBase::TCPSocketBase(SocketType type, const char * IpAdrr, int port)
 		cout << currentDateTime().c_str() << " :: Starting server..." << endl;
 
 	//create 
-	ver = MAKEWORD(2, 2);
-	wsOk = WSAStartup(ver, &wsData);
+	ver = MAKEWORD_wrapper(2, 2);
+	wsOk = WSAStartup_wrapper(ver, &wsData);
 	if (wsOk != 0)
 	{
 		STT = SocketStatus::ERRORS;
@@ -23,7 +23,7 @@ TCPSocketBase::TCPSocketBase(SocketType type, const char * IpAdrr, int port)
 	}	
 
 
-	skListening = socket(AF_INET, SOCK_STREAM, 0);
+	skListening = socket_wrapper(AF_INET, SOCK_STREAM, 0);
 	if (skListening == INVALID_SOCKET)
 	{
 		STT = SocketStatus::ERRORS;
